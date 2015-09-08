@@ -65,6 +65,8 @@ namespace ZipPlus4
             var address = new TPostalAddress();
             address.Parse(collection.Cast<Match>().ToList());
 
+            completion(address);
+
             return address;
         }
 
