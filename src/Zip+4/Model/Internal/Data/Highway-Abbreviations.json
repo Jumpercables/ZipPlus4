@@ -1,0 +1,23 @@
+﻿[
+    { "Name": "HWY", "Value": "HIGHWAY" },
+    { "Name": "HIGHWAY", "Value": "HIGHWAY" },
+    { "Name": "COUNTY HIGHWAY", "Value": "COUNTY HIGHWAY" },
+    { "Name": "COUNTY HWY", "Value": "COUNTY HIGHWAY" },
+    { "Name": "CNTY HWY", "Value": "COUNTY HIGHWAY" },
+    { "Name": "COUNTY RD", "Value": "COUNTY ROAD" },
+    { "Name": "COUNTY ROAD", "Value": "COUNTY ROAD" },
+    { "Name": "CR", "Value": "COUNTY ROAD" },
+    { "Name": "CNTY RD", "Value": "COUNTY ROAD" },
+    { "Name": "EXPRESSWAY", "Value": "EXPRESSWAY" },
+    { "Name": "FM", "Value": "FM" },
+    { "Name": "FARM TO MARKET", "Value": "FM" },
+    { "Name": "HWY FM", "Value": "FM" },
+    { "Name": "BYPASS", "Value": "BYP" },
+    { "Name": "BYPASS ROAD", "Value": "BYP RD" },
+    { "Name": "FRONTAGE", "Value": "FRONTAGE" },
+    { "Name": "FRONTAGE ROAD", "Value": "FRONTAGE RD" },
+    { "Name": "FRONTAGE BYP", "Value": "FRONTAGE BYP" },
+    { "Name": "RT", "Value": "ROUTE" },
+    { "Name": "ROUTE", "Value": "ROUTE" },
+    { "Name": "RTE", "Value": "ROUTE" }
+]

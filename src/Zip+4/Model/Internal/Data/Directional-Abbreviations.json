@@ -1,0 +1,18 @@
+﻿[
+    { "Name": "E", "Value": "E" },
+    { "Name": "W", "Value": "W" },
+    { "Name": "S", "Value": "S" },
+    { "Name": "N", "Value": "N" },
+    { "Name": "NE", "Value": "NE" },
+    { "Name": "SE", "Value": "SE" },
+    { "Name": "SW", "Value": "SW" },
+    { "Name": "NW", "Value": "NW" },
+    { "Name": "EAST", "Value": "E" },
+    { "Name": "WEST", "Value": "W" },
+    { "Name": "SOUTH", "Value": "S" },
+    { "Name": "NORTH", "Value": "N" },
+    { "Name": "NORTHEAST", "Value": "NE" },
+    { "Name": "SOUTHEAST", "Value": "SE" },
+    { "Name": "SOUTHWEST", "Value": "SW" },
+    { "Name": "NORTHWEST", "Value": "NW" }
+]
