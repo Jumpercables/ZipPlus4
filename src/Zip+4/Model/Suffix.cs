@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -10,7 +9,7 @@ namespace ZipPlus4.Model
     /// <summary>
     ///     The suffix abbreviation of the street.
     /// </summary>
-    public class Suffix : Address
+    public class Suffix : Abbreviations
     {
         #region Fields
 
@@ -18,15 +17,27 @@ namespace ZipPlus4.Model
 
         #endregion
 
-        #region Internal Methods
+        #region Constructors
 
         /// <summary>
-        /// Tries the parse the data into the correct format.
+        ///     Initializes a new instance of the <see cref="Suffix" /> class.
+        /// </summary>
+        public Suffix()
+            : base(Abbreviations)
+        {
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
+        ///     Tries the parse the data into the correct format.
         /// </summary>
         /// <param name="collection">The collection.</param>
         /// <param name="depth">The depth.</param>
         /// <returns>
-        /// Returns <see cref="string" /> representing the parsed value.
+        ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
         protected override string Parse(List<Match> collection, int depth)
         {
@@ -36,16 +47,7 @@ namespace ZipPlus4.Model
                                             @"([a-zA-z]{2,})"); // two or more characters;
             if (m.Success)
             {
-                var abbreviation = Abbreviations.FirstOrDefault(o => o.Name.Equals(m.Value, StringComparison.InvariantCultureIgnoreCase));
-                if (abbreviation != null)
-                {
-                    value = abbreviation.Value;
-                }
-                else
-                {
-                    abbreviation = Abbreviations.FirstOrDefault(o => o.Value.Equals(m.Value, StringComparison.InvariantCultureIgnoreCase));
-                    if (abbreviation != null) value = abbreviation.Value;
-                }
+                value = base.Parse(collection, depth);
             }
 
             if (value != null)

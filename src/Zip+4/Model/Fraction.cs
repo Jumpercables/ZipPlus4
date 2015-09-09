@@ -9,15 +9,15 @@ namespace ZipPlus4.Model
     /// </summary>
     public class Fraction : Address
     {
-        #region Internal Methods
+        #region Protected Methods
 
         /// <summary>
-        /// Tries the parse the data into the correct format.
+        ///     Tries the parse the data into the correct format.
         /// </summary>
         /// <param name="collection">The collection.</param>
         /// <param name="depth">The depth.</param>
         /// <returns>
-        /// Returns <see cref="string" /> representing the parsed value.
+        ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
         protected override string Parse(List<Match> collection, int depth)
         {

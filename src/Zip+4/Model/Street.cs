@@ -11,15 +11,15 @@ namespace ZipPlus4.Model
     /// </summary>
     public class Street : Address
     {
-        #region Internal Methods
+        #region Protected Methods
 
         /// <summary>
-        /// Tries the parse the data into the correct format.
+        ///     Tries the parse the data into the correct format.
         /// </summary>
         /// <param name="collection">The collection.</param>
         /// <param name="depth">The depth.</param>
         /// <returns>
-        /// Returns <see cref="string" /> representing the parsed value.
+        ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
         protected override string Parse(List<Match> collection, int depth)
         {
@@ -41,15 +41,15 @@ namespace ZipPlus4.Model
             }
 
             m = Regex.Match(data.Value, @"(\d+?" + // one or more digits
-                                            @"[a-zA-Z]+)" + // one or more characters                                       
-                                            @"|([a-zA-Z]{1,})"); // OR 2 or more characters)
+                                        @"[a-zA-Z]+)" + // one or more characters                                       
+                                        @"|([a-zA-Z]{1,})"); // OR 2 or more characters)
             if (m.Success)
-            {                
+            {
                 collection.Remove(data);
 
                 if (collection.Count > 0)
                     value = this.Parse(collection, ++depth) + " " + m.Value;
-                else 
+                else
                     value = m.Value;
             }
 

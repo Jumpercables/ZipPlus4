@@ -40,10 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Internal\LevenshteinDistance.cs" />
+    <Compile Include="Model\Abbreviations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Direction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\State.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StandardAddress.cs" />
     <Compile Include="Model\Highway.cs" />
     <Compile Include="Model\Internal\Abbreviation.cs" />
-    <Compile Include="Model\Direction.cs" />
     <Compile Include="Model\Fraction.cs" />
     <Compile Include="Model\Number.cs" />
     <Compile Include="Model\Suffix.cs" />
