@@ -40,35 +40,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Internal\LevenshteinDistance.cs" />
-    <Compile Include="Model\Abbreviations.cs">
+    <Compile Include="Verbs\AddressVerb.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Direction.cs">
+    <Compile Include="Verbs\Components\Internal\LevenshteinDistance.cs" />
+    <Compile Include="Verbs\Components\Abbreviations.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\State.cs">
+    <Compile Include="Verbs\Components\Direction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="StandardAddress.cs" />
-    <Compile Include="Model\Highway.cs" />
-    <Compile Include="Model\Internal\Abbreviation.cs" />
-    <Compile Include="Model\Fraction.cs" />
-    <Compile Include="Model\Number.cs" />
-    <Compile Include="Model\Suffix.cs" />
+    <Compile Include="Verbs\Components\State.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PostalAddress.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Street.cs" />
+    <Compile Include="Verbs\Components\Highway.cs" />
+    <Compile Include="Verbs\Components\Internal\Abbreviation.cs" />
+    <Compile Include="Verbs\Components\Fraction.cs" />
+    <Compile Include="Verbs\Components\Number.cs" />
+    <Compile Include="Verbs\Components\Suffix.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Verbs\Components\Street.cs" />
+    <Compile Include="Verbs\Components\UnitDesignator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model\Internal\Data\Street-Abbreviations.json" />
-    <EmbeddedResource Include="Model\Internal\Data\State-Abbreviations.json" />
-    <EmbeddedResource Include="Model\Internal\Data\Secondary-Unit-Abbreviations.json" />
-    <EmbeddedResource Include="Model\Internal\Data\Directional-Abbreviations.json" />
+    <EmbeddedResource Include="Verbs\Components\Internal\Data\Street-Abbreviations.json" />
+    <EmbeddedResource Include="Verbs\Components\Internal\Data\State-Abbreviations.json" />
+    <EmbeddedResource Include="Verbs\Components\Internal\Data\Secondary-Unit-Abbreviations.json" />
+    <EmbeddedResource Include="Verbs\Components\Internal\Data\Directional-Abbreviations.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model\Internal\Data\Highway-Abbreviations.json" />
+    <EmbeddedResource Include="Verbs\Components\Internal\Data\Highway-Abbreviations.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     /// <summary>
     ///     A word that indicates a fractional address number.
     /// </summary>
-    public class Fraction : Address
+    public class Fraction : AddressVerb
     {
         #region Protected Methods
 

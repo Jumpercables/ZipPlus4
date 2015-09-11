@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using ZipPlus4.Model;
-
 namespace ZipPlus4.Tests
 {
     /// <summary>
@@ -15,7 +13,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Number_Numeric()
         {
-            var value = Address.Parse<Number>("101");
+            var value = AddressVerb.Parse<Number>("101");
             Assert.AreEqual("101", value);
         }
         

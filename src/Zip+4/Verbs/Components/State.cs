@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using ZipPlus4.Model.Internal;
+using ZipPlus4.Internal;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     /// <summary>
     ///     Parses the US state into the approprariate abbreviations.

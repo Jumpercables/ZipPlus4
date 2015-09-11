@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using ZipPlus4.Model.Internal;
+using ZipPlus4.Internal;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     /// <summary>
     ///     The suffix abbreviation of the street.

@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     /// <summary>
     ///     The numeric identifier for a land parcel, house, building or other feature, as
     ///     defined by the official address authority for the given jurisdiction.
     /// </summary>
-    public class Number : Address
+    public class Number : AddressVerb
     {
         #region Protected Methods
 

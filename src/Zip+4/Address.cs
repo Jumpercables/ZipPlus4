@@ -1,49 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ZipPlus4
 {
     /// <summary>
-    ///     An abstract class used to represent the data for an address element and used as a factory class to parse the elements.
+    ///      A complete address as one that has all the address elements necessary to allow an exact match with the current Postal Service standards.
     /// </summary>
     public abstract class Address
     {
         #region Public Methods
 
         /// <summary>
-        ///     Parses the specified data into the tokenized data based on the type.
+        ///     Parses the specified data into the postal address type.
         /// </summary>
-        /// <typeparam name="TAddress">The type of the component.</typeparam>
+        /// <typeparam name="TPostalAddress">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns>
-        ///     Returns a <see cref="string" /> representing the parsed value, otherwise <c>null</c>.
+        ///     Returns a <see cref="TPostalAddress" /> representing the object, otherwise <c>null</c>.
         /// </returns>
-        public static string Parse<TAddress>(string data) where TAddress : Address, new()
+        public static TPostalAddress Parse<TPostalAddress>(string data) where TPostalAddress : Address, new()
+        {
+            return Parse<TPostalAddress>(data, completion => { });
+        }
+
+        /// <summary>
+        ///     Parses the specified data into the postal address type.
+        /// </summary>
+        /// <typeparam name="TPostalAddress">The type of the component.</typeparam>
+        /// <param name="data">The data.</param>
+        /// <param name="completion">The action delegate that is called once the parsing completes.</param>
+        /// <returns>
+        ///     Returns a <see cref="TPostalAddress" /> representing the object, otherwise <c>null</c>.
+        /// </returns>
+        public static TPostalAddress Parse<TPostalAddress>(string data, Action<TPostalAddress> completion) where TPostalAddress : Address, new()
         {
             if (data == null)
                 return null;
 
-            return Parse<TAddress>(Regex.Matches(data, @".+").Cast<Match>().ToList());
+            return Parse(data, @"[^\s" + // anything but whitespace
+                               @"\." + // ignore periods
+                               @"]+",
+                completion);
         }
 
         /// <summary>
-        ///     Parses the specified data into the tokenized data based on the type.
+        ///     Parses the specified data into the postal address type.
         /// </summary>
-        /// <typeparam name="TAddress">The type of the component.</typeparam>
+        /// <typeparam name="TPostalAddress">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
+        /// <param name="pattern">The regular expression pattern that is used to parse the data.</param>
+        /// <param name="completion">The action delegate that is called once the parsing completes.</param>
         /// <returns>
-        ///     Returns a <see cref="string" /> representing the parsed value, otherwise <c>null</c>.
+        ///     Returns a <see cref="TPostalAddress" /> representing the object, otherwise <c>null</c>.
         /// </returns>
-        public static string Parse<TAddress>(List<Match> data) where TAddress : Address, new()
+        public static TPostalAddress Parse<TPostalAddress>(string data, string pattern, Action<TPostalAddress> completion) where TPostalAddress : Address, new()
         {
-            if (data == null || data.Count == 0)
+            if (data == null)
                 return null;
 
-            var address = new TAddress();
-            var value = address.Parse(data, 0);
-            return string.IsNullOrEmpty(value) ? value : value.Trim();
+            var collection = Regex.Matches(data.ToUpperInvariant().Trim(), pattern);
+
+            var address = new TPostalAddress();
+            address.Parse(collection.Cast<Match>().ToList());
+
+            completion(address);
+
+            return address;
         }
 
         #endregion
@@ -54,25 +78,10 @@ namespace ZipPlus4
         ///     Tries the parse the data into the correct format.
         /// </summary>
         /// <param name="collection">The collection.</param>
-        /// <param name="depth">The depth.</param>
         /// <returns>
         ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
-        protected abstract string Parse(List<Match> collection, int depth);
-
-        /// <summary>
-        ///     Removes the punctuation from the string.
-        /// </summary>
-        /// <param name="s1">The string that will have the punctuation removed.</param>
-        /// <returns>
-        ///     Returns a <see cref="string" /> representing a string without punctuation.
-        /// </returns>
-        protected string RemovePunctuation(string s1)
-        {
-            return s1.Where(c => !char.IsPunctuation(c))
-                .Aggregate(new StringBuilder(),
-                    (current, next) => current.Append(next), sb => sb.ToString().Trim());
-        }
+        protected abstract string Parse(List<Match> collection);
 
         #endregion
     }

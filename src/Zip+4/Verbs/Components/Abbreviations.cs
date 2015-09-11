@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using ZipPlus4.Model.Internal;
+using ZipPlus4.Internal;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     /// <summary>
     ///     An abbreviated address element.
     /// </summary>
-    public abstract class Abbreviations : Address
+    public abstract class Abbreviations : AddressVerb
     {
         #region Fields
 
@@ -18,6 +18,11 @@ namespace ZipPlus4.Model
         ///     The abbreviated data.
         /// </summary>
         private readonly List<Abbreviation> _Abbreviations;
+
+        /// <summary>
+        ///     The fuzzy minimum score
+        /// </summary>
+        public static int FuzzyMinimum = 70;
 
         #endregion
 
@@ -86,27 +91,29 @@ namespace ZipPlus4.Model
             string value = null;
             var data = collection.First();
 
-            var abbreviations = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value, a.Name)});
-            var abbreviation = abbreviations.FirstOrDefault(a => a.Normalized > 70);
-            if (abbreviation != null)
+            var normalized = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value, a.Name)}).ToArray();
+            var max = normalized.Max(a => a.Normalized);
+            if (max > FuzzyMinimum)
             {
-                value = abbreviation.Value;
+                value = normalized.First(a => a.Normalized == max).Value;
             }
-            else
+
+            if (string.IsNullOrEmpty(value))
             {
-                abbreviations = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value, a.Value)});
-                abbreviation = abbreviations.FirstOrDefault(a => a.Normalized > 70);
-                if (abbreviation != null) value = abbreviation.Value;
+                normalized = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value, a.Value)}).ToArray();
+                max = normalized.Max(a => a.Normalized);
+                if (max > FuzzyMinimum)
+                {
+                    value = normalized.First(a => a.Normalized == max).Value;
+                }
             }
 
             if (!string.IsNullOrEmpty(value))
             {
                 collection.Remove(data);
-
-                return value;
             }
 
-            return null;
+            return value;
         }
 
         #endregion

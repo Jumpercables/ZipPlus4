@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using ZipPlus4.Model.Internal;
+using ZipPlus4.Internal;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     public class Highway : Street
     {
@@ -62,7 +62,7 @@ namespace ZipPlus4.Model
                 collection.Remove(data);
 
                 if (collection.Count > 0)
-                    return this.Parse(collection, ++depth) + " " + m.Value.Trim();
+                    return (this.Parse(collection, ++depth) + " " + m.Value).Trim();
 
                 return m.Value.Trim();
             }

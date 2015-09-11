@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Script.Serialization;
 
-namespace ZipPlus4.Model.Internal
+namespace ZipPlus4.Internal
 {
     /// <summary>
     ///     An key/value pair of the name and value of the abbreviations.

@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ZipPlus4.Model
+namespace ZipPlus4
 {
     /// <summary>
     ///     Official name of a street as assigned by a local governing authority, or an alternate
     ///     (alias) name that is used and recognized, excluding street types, directionals, and
     ///     modifiers.
     /// </summary>
-    public class Street : Address
+    public class Street : AddressVerb
     {
         #region Protected Methods
 
@@ -48,7 +48,7 @@ namespace ZipPlus4.Model
                 collection.Remove(data);
 
                 if (collection.Count > 0)
-                    value = this.Parse(collection, ++depth) + " " + m.Value;
+                    value = (this.Parse(collection, ++depth) + " " + m.Value).Trim();
                 else
                     value = m.Value;
             }

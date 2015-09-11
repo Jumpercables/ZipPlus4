@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using ZipPlus4.Model;
-
 namespace ZipPlus4.Tests
 {
     [TestClass]
@@ -12,7 +10,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Fraction_SlashOnly()
         {
-            var value = Address.Parse<Fraction>("/");
+            var value = AddressVerb.Parse<Fraction>("/");
 
             Assert.AreEqual(null, value);
         }
@@ -20,7 +18,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Fraction_DenominatorOnly()
         {
-            var value = Address.Parse<Fraction>("/2");
+            var value = AddressVerb.Parse<Fraction>("/2");
 
             Assert.AreEqual(null, value);
         }
@@ -28,7 +26,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Fraction_NumeratorOnly()
         {
-            var value = Address.Parse<Fraction>("1/");
+            var value = AddressVerb.Parse<Fraction>("1/");
             
             Assert.AreEqual(null, value);
         }
@@ -36,7 +34,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Fraction_NumeratorAndDenomiator()
         {
-            var value = Address.Parse<Fraction>("1/2");
+            var value = AddressVerb.Parse<Fraction>("1/2");
 
             Assert.AreEqual("1/2", value);
         }

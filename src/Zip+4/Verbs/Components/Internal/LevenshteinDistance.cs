@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZipPlus4.Model.Internal
+namespace ZipPlus4.Internal
 {
     /// <summary>
     ///     The "Edit Distance" also known as "Levenshtein Distance" (named after the Russian scientist
