@@ -1,4 +1,5 @@
 ﻿[
+    { "Name": "COAST", "Value": "COAST HIGHWAY" },
     { "Name": "HWY", "Value": "HIGHWAY" },
     { "Name": "HIGHWAY", "Value": "HIGHWAY" },
     { "Name": "COUNTY HIGHWAY", "Value": "COUNTY HIGHWAY" },

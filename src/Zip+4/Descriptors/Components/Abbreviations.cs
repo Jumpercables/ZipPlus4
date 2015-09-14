@@ -10,7 +10,7 @@ namespace ZipPlus4
     /// <summary>
     ///     An abbreviated address element.
     /// </summary>
-    public abstract class Abbreviations : AddressVerb
+    public abstract class Abbreviations : AddressDescriptor
     {
         #region Fields
 
@@ -20,9 +20,9 @@ namespace ZipPlus4
         private readonly List<Abbreviation> _Abbreviations;
 
         /// <summary>
-        ///     The fuzzy minimum score
+        ///     The minimum fuzzy score.
         /// </summary>
-        public static int FuzzyMinimum = 70;
+        private readonly int _MinimumFuzzyScore;
 
         #endregion
 
@@ -32,9 +32,26 @@ namespace ZipPlus4
         ///     Initializes a new instance of the <see cref="Abbreviations" /> class.
         /// </summary>
         /// <param name="abbreviations">The abbreviations.</param>
-        internal Abbreviations(List<Abbreviation> abbreviations)
+        /// <param name="minimumFuzzyScore">The minimum fuzzy score.</param>
+        internal Abbreviations(List<Abbreviation> abbreviations, int minimumFuzzyScore = 100)
         {
             _Abbreviations = abbreviations;
+            _MinimumFuzzyScore = minimumFuzzyScore;
+        }
+
+        #endregion
+
+        #region Protected Properties
+
+        /// <summary>
+        ///     Gets the minimum fuzzy score.
+        /// </summary>
+        /// <value>
+        ///     The minimum fuzzy score.
+        /// </value>
+        protected virtual int MinimumFuzzyScore
+        {
+            get { return _MinimumFuzzyScore; }
         }
 
         #endregion
@@ -72,7 +89,7 @@ namespace ZipPlus4
                 return value;
             }
 
-            return this.Fuzzy(collection);
+            return this.Fuzzy(collection, this.MinimumFuzzyScore);
         }
 
         #endregion
@@ -83,26 +100,27 @@ namespace ZipPlus4
         ///     Tries the parse the data into the correct format using a fuzzy match.
         /// </summary>
         /// <param name="collection">The collection.</param>
+        /// <param name="minimumFuzzyScore">The minimum fuzzy score.</param>
         /// <returns>
         ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
-        private string Fuzzy(List<Match> collection)
+        private string Fuzzy(List<Match> collection, int minimumFuzzyScore)
         {
             string value = null;
             var data = collection.First();
 
-            var normalized = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value, a.Name)}).ToArray();
+            var normalized = _Abbreviations.Select(a => new { a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value.ToUpperInvariant(), a.Name.ToUpperInvariant()) }).ToArray();
             var max = normalized.Max(a => a.Normalized);
-            if (max > FuzzyMinimum)
+            if (max >= minimumFuzzyScore)
             {
                 value = normalized.First(a => a.Normalized == max).Value;
             }
 
             if (string.IsNullOrEmpty(value))
             {
-                normalized = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value, a.Value)}).ToArray();
+                normalized = _Abbreviations.Select(a => new { a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value.ToUpperInvariant(), a.Value.ToUpperInvariant()) }).ToArray();
                 max = normalized.Max(a => a.Normalized);
-                if (max > FuzzyMinimum)
+                if (max >= minimumFuzzyScore)
                 {
                     value = normalized.First(a => a.Normalized == max).Value;
                 }

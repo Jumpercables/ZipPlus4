@@ -63,9 +63,9 @@ namespace ZipPlus4.Internal
         /// <returns>
         ///     Returns a <see cref="List{Abbreviation}" /> representing the list of abbreviations.
         /// </returns>
-        public static List<Abbreviation> CreateSecondaryUnitAbbreviations()
+        public static List<Abbreviation> CreateUnitAbbreviations()
         {
-            return CreateAbbreviations("Secondary-Unit-Abbreviations.json");
+            return CreateAbbreviations("Unit-Abbreviations.json");
         }
 
         /// <summary>

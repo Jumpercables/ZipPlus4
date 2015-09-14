@@ -8,40 +8,40 @@ namespace ZipPlus4
     /// <summary>
     ///     An abstract class used to represent the data for an address element and used as a factory class to parse the elements.
     /// </summary>
-    public abstract class AddressVerb 
+    public abstract class AddressDescriptor
     {
         #region Public Methods
 
         /// <summary>
         ///     Parses the specified data into the tokenized data based on the type.
         /// </summary>
-        /// <typeparam name="TAddress">The type of the component.</typeparam>
+        /// <typeparam name="T">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns>
         ///     Returns a <see cref="string" /> representing the parsed value, otherwise <c>null</c>.
         /// </returns>
-        public static string Parse<TAddress>(string data) where TAddress : AddressVerb, new()
+        public static string Parse<T>(string data) where T : AddressDescriptor, new()
         {
             if (data == null)
                 return null;
 
-            return Parse<TAddress>(Regex.Matches(data, @".+").Cast<Match>().ToList());
+            return Parse<T>(Regex.Matches(data, @".+").Cast<Match>().ToList());
         }
 
         /// <summary>
         ///     Parses the specified data into the tokenized data based on the type.
         /// </summary>
-        /// <typeparam name="TAddress">The type of the component.</typeparam>
+        /// <typeparam name="T">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns>
         ///     Returns a <see cref="string" /> representing the parsed value, otherwise <c>null</c>.
         /// </returns>
-        public static string Parse<TAddress>(List<Match> data) where TAddress : AddressVerb, new()
+        public static string Parse<T>(List<Match> data) where T : AddressDescriptor, new()
         {
             if (data == null || data.Count == 0)
                 return null;
 
-            var address = new TAddress();
+            var address = new T();
             return address.Parse(data, 0);
         }
 

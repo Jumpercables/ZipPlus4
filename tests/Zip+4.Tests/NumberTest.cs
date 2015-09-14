@@ -13,7 +13,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Number_Numeric()
         {
-            var value = AddressVerb.Parse<Number>("101");
+            var value = AddressDescriptor.Parse<Number>("101");
             Assert.AreEqual("101", value);
         }
         

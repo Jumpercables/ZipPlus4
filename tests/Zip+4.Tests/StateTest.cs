@@ -10,49 +10,49 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void State_CO()
         {
-            var value = AddressVerb.Parse<State>("CO");
+            var value = AddressDescriptor.Parse<State>("CO");
             Assert.AreEqual("CO", value);
         }
 
         [TestMethod]
         public void State_Col()
         {
-            var value = AddressVerb.Parse<State>("Col");
+            var value = AddressDescriptor.Parse<State>("Col");
             Assert.AreEqual(null, value);
         }
 
         [TestMethod]
         public void State_Colo()
         {
-            var value = AddressVerb.Parse<State>("Colo");
+            var value = AddressDescriptor.Parse<State>("Colo");
             Assert.AreEqual(null, value);
         }
 
         [TestMethod]
         public void State_Color()
         {
-            var value = AddressVerb.Parse<State>("Color");
+            var value = AddressDescriptor.Parse<State>("Color");
             Assert.AreEqual(null, value);
         }
 
         [TestMethod]
         public void State_Colora()
         {
-            var value = AddressVerb.Parse<State>("Colora");
+            var value = AddressDescriptor.Parse<State>("Colora");
             Assert.AreEqual("CO", value);
         }
 
         [TestMethod]
         public void State_Colorad()
         {
-            var value = AddressVerb.Parse<State>("Colorad");
+            var value = AddressDescriptor.Parse<State>("Colorad");
             Assert.AreEqual("CO", value);
         }
 
         [TestMethod]
         public void State_Colorado()
         {
-            var value = AddressVerb.Parse<State>("Colorado");
+            var value = AddressDescriptor.Parse<State>("Colorado");
             Assert.AreEqual("CO", value);
         }
 

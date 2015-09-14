@@ -9,7 +9,7 @@ namespace ZipPlus4
     ///     (alias) name that is used and recognized, excluding street types, directionals, and
     ///     modifiers.
     /// </summary>
-    public class Street : AddressVerb
+    public class Street : AddressDescriptor
     {
         #region Protected Methods
 
@@ -25,7 +25,7 @@ namespace ZipPlus4
         {
             string value = null;
             var data = collection.First();
-
+            
             var m = Regex.Match(data.Value, @"(^[a-zA-Z]$)"); // one and only one character.
             if (m.Success)
             {
@@ -39,18 +39,25 @@ namespace ZipPlus4
                     return null;
                 }
             }
-
+           
             m = Regex.Match(data.Value, @"(\d+?" + // one or more digits
                                         @"[a-zA-Z]+)" + // one or more characters                                       
-                                        @"|([a-zA-Z]{1,})"); // OR 2 or more characters)
+                                        @"|([a-zA-Z]{1,})"); // OR one or more characters)
+            if (m.Success)
+            {
+                collection.Remove(data);
+
+                value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + m.Value).Trim() : m.Value;
+            }
+
+            // When there's a slash it will be a cross street or intersection or both.
+            m = Regex.Match(data.Value, @"^(\/|(and)|(between))$", RegexOptions.IgnoreCase);
             if (m.Success)
             {
                 collection.Remove(data);
 
                 if (collection.Count > 0)
-                    value = (this.Parse(collection, ++depth) + " " + m.Value).Trim();
-                else
-                    value = m.Value;
+                    this.Parse(collection, ++depth);
             }
 
             return value;

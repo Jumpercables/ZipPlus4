@@ -15,31 +15,32 @@ namespace ZipPlus4
         /// <summary>
         ///     Parses the specified data into the postal address type.
         /// </summary>
-        /// <typeparam name="TPostalAddress">The type of the component.</typeparam>
+        /// <typeparam name="TAddress">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns>
-        ///     Returns a <see cref="TPostalAddress" /> representing the object, otherwise <c>null</c>.
+        ///     Returns a <see cref="TAddress" /> representing the object, otherwise <c>null</c>.
         /// </returns>
-        public static TPostalAddress Parse<TPostalAddress>(string data) where TPostalAddress : Address, new()
+        public static TAddress Parse<TAddress>(string data) where TAddress : Address, new()
         {
-            return Parse<TPostalAddress>(data, completion => { });
+            return Parse<TAddress>(data, completion => { });
         }
 
         /// <summary>
         ///     Parses the specified data into the postal address type.
         /// </summary>
-        /// <typeparam name="TPostalAddress">The type of the component.</typeparam>
+        /// <typeparam name="TAddress">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
         /// <param name="completion">The action delegate that is called once the parsing completes.</param>
         /// <returns>
-        ///     Returns a <see cref="TPostalAddress" /> representing the object, otherwise <c>null</c>.
+        ///     Returns a <see cref="TAddress" /> representing the object, otherwise <c>null</c>.
         /// </returns>
-        public static TPostalAddress Parse<TPostalAddress>(string data, Action<TPostalAddress> completion) where TPostalAddress : Address, new()
+        public static TAddress Parse<TAddress>(string data, Action<TAddress> completion) where TAddress : Address, new()
         {
             if (data == null)
                 return null;
 
-            return Parse(data, @"[^\s" + // anything but whitespace
+            return Parse(data, @"\#|"+
+                               @"[^\s" + // anything but whitespace
                                @"\." + // ignore periods
                                @"]+",
                 completion);
@@ -48,21 +49,21 @@ namespace ZipPlus4
         /// <summary>
         ///     Parses the specified data into the postal address type.
         /// </summary>
-        /// <typeparam name="TPostalAddress">The type of the component.</typeparam>
+        /// <typeparam name="TAddress">The type of the component.</typeparam>
         /// <param name="data">The data.</param>
         /// <param name="pattern">The regular expression pattern that is used to parse the data.</param>
         /// <param name="completion">The action delegate that is called once the parsing completes.</param>
         /// <returns>
-        ///     Returns a <see cref="TPostalAddress" /> representing the object, otherwise <c>null</c>.
+        ///     Returns a <see cref="TAddress" /> representing the object, otherwise <c>null</c>.
         /// </returns>
-        public static TPostalAddress Parse<TPostalAddress>(string data, string pattern, Action<TPostalAddress> completion) where TPostalAddress : Address, new()
+        public static TAddress Parse<TAddress>(string data, string pattern, Action<TAddress> completion) where TAddress : Address, new()
         {
             if (data == null)
                 return null;
 
             var collection = Regex.Matches(data.ToUpperInvariant().Trim(), pattern);
 
-            var address = new TPostalAddress();
+            var address = new TAddress();
             address.Parse(collection.Cast<Match>().ToList());
 
             completion(address);

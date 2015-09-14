@@ -120,43 +120,34 @@ namespace ZipPlus4
                 // toward the left.
                 var reverse = collection.Cast<Match>().Reverse().ToList();
 
-                if (this.IsHighway(collection))
+                if (Highway.Is(collection))
                 {
-                    this.Street = AddressVerb.Parse<Highway>(reverse);
-                    this.Number = AddressVerb.Parse<Number>(reverse);
+                    string highway = AddressDescriptor.Parse<Highway>(reverse);
+
+                    this.PreDirectional = AddressDescriptor.Parse<Direction>(reverse);
+                    this.Street = string.Concat(AddressDescriptor.Parse<Street>(reverse), " ", highway).Trim();
+                    
+                    if(string.IsNullOrEmpty(this.PreDirectional))
+                        this.PreDirectional = AddressDescriptor.Parse<Direction>(reverse);
+
+                    this.Number = AddressDescriptor.Parse<Number>(reverse);
                 }
                 else
                 {
-                    this.Unit = AddressVerb.Parse<UnitDesignator>(reverse);
-                    this.PostDirectional = AddressVerb.Parse<Direction>(reverse);
-                    this.Suffix = AddressVerb.Parse<Suffix>(reverse);
-                    this.Street = AddressVerb.Parse<Street>(reverse);
-                    this.PreDirectional = AddressVerb.Parse<Direction>(reverse);
-                    this.Fraction = AddressVerb.Parse<Fraction>(reverse);
-                    this.Number = AddressVerb.Parse<Number>(reverse);
+                    this.Unit = AddressDescriptor.Parse<UnitDesignator>(reverse);
+                    this.PostDirectional = AddressDescriptor.Parse<Direction>(reverse);
+                    this.Suffix = AddressDescriptor.Parse<Suffix>(reverse);
+                    this.Street = AddressDescriptor.Parse<Street>(reverse);
+                    this.PreDirectional = AddressDescriptor.Parse<Direction>(reverse);
+                    this.Fraction = AddressDescriptor.Parse<Fraction>(reverse);
+                    this.Number = AddressDescriptor.Parse<Number>(reverse);
+                    
                 }
             }
 
             return this.ToString();
         }
 
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        ///     Determines whether the specified collection is highway.
-        /// </summary>
-        /// <param name="collection">The collection.</param>
-        /// <returns>
-        ///     Returns a <see cref="bool" /> representing true when the collection is a highway.
-        /// </returns>
-        private bool IsHighway(List<Match> collection)
-        {
-            var reverse = collection.Cast<Match>().Reverse().ToList();
-            return (AddressVerb.Parse<Number>(reverse) != null || collection.Any(m => Highway.Is(m.Value)));
-        }
-
-        #endregion
+        #endregion        
     }
 }

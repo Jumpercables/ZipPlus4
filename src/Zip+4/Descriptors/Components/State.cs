@@ -24,7 +24,7 @@ namespace ZipPlus4
         ///     Initializes a new instance of the <see cref="State" /> class.
         /// </summary>
         public State()
-            : base(Abbreviations)
+            : base(Abbreviations, 70)
         {
         }
 

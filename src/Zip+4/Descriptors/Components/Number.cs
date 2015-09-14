@@ -5,9 +5,10 @@ using System.Text.RegularExpressions;
 namespace ZipPlus4
 {
     /// <summary>
-    ///     A word that indicates a fractional address number.
+    ///     The numeric identifier for a land parcel, house, building or other feature, as
+    ///     defined by the official address authority for the given jurisdiction.
     /// </summary>
-    public class Fraction : AddressVerb
+    public class Number : AddressDescriptor
     {
         #region Protected Methods
 
@@ -23,21 +24,14 @@ namespace ZipPlus4
         {
             string value = null;
             var data = collection.First();
-            var m = Regex.Match(data.Value, @"(\d?" + // zero or more digits
-                                            @"\/" + // one slash
-                                            @"\d?)"); // zero or more digits)
+            var m = Regex.Match(data.Value, @"^(\d+" + // one or more digits
+                                            @"(\.?\d+))"); // optionally zero or more periods and one or more digits.
             if (m.Success)
             {
-                m = Regex.Match(m.Value, @"(\d" + // one digit
-                                         @"\/" + //  one slash (/)
-                                         @"\d)"); // one digit
-                if (m.Success)
-                {
-                    value = m.Value.Trim();
-                }
-
-                collection.Remove(data);
+                value = m.Value.Trim();
             }
+
+            collection.Remove(data);
 
             return value;
         }
