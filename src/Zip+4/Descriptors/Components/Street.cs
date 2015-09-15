@@ -42,7 +42,7 @@ namespace ZipPlus4
                 }
             }
 
-            // Remove the cross streets and street intersections.
+            // Remove the cross streets and street intersections, as they are not supported.
             if (data.Value.Equals("/") || Regex.IsMatch(data.Value, @"([a-zA-Z]+\/[a-zA-Z]+)") || Regex.IsMatch(data.Value, @"^(AND)|(BETWEEN)$", RegexOptions.IgnoreCase))
             {
                 collection.Remove(data);
@@ -52,7 +52,7 @@ namespace ZipPlus4
             }
             else
             {
-                // Zero or more digits and zero or more characters
+                // Zero or more digits and/or one or more characters
                 m = Regex.Match(data.Value, @"(\d+)?([a-zA-Z]+)");
                 if (m.Success)
                 {
@@ -66,7 +66,7 @@ namespace ZipPlus4
                 {
                     collection.Remove(data);
 
-                    value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + data.Value).Trim() : data.Value;
+                    value = (this.Parse(collection, ++depth) + " " + data.Value).Trim();
                 }
             }
 
