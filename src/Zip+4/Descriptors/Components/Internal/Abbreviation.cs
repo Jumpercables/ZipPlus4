@@ -36,6 +36,17 @@ namespace ZipPlus4.Internal
         #region Public Methods
 
         /// <summary>
+        ///     Creates the spanish abbreviations.
+        /// </summary>
+        /// <returns>
+        ///     Returns a <see cref="List{Abbreviation}" /> representing the list of abbreviations.
+        /// </returns>
+        public static List<Abbreviation> CreateSpanishAbbreviations()
+        {
+            return CreateAbbreviations("Spanish-Abbreviations.json");
+        }
+
+        /// <summary>
         ///     Creates the directional abbreviations.
         /// </summary>
         /// <returns>

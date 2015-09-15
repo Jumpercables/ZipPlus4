@@ -31,33 +31,43 @@ namespace ZipPlus4
             {
                 if (depth == 0)
                 {
-                    value = m.Value;
                     collection.Remove(data);
+
+                    value = m.Value;
                 }
                 else
                 {
                     return null;
                 }
             }
-           
-            m = Regex.Match(data.Value, @"(\d+?" + // one or more digits
-                                        @"[a-zA-Z]+)" + // one or more characters                                       
-                                        @"|([a-zA-Z]{1,})"); // OR one or more characters)
-            if (m.Success)
-            {
-                collection.Remove(data);
 
-                value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + m.Value).Trim() : m.Value;
+            if (data.Value.Equals("/") || Regex.IsMatch(data.Value, @"([a-zA-Z]+\/[a-zA-Z]+)") || Regex.IsMatch(data.Value, @"^(AND)|(BETWEEN)$", RegexOptions.IgnoreCase))
+            {
+                 collection.Remove(data);
+
+                if (collection.Count > 0) 
+                    this.Parse(collection, ++depth); // The data is not used on purpose.
             }
-
-            // When there's a slash it will be a cross street or intersection or both.
-            m = Regex.Match(data.Value, @"^(\/|(and)|(between))$", RegexOptions.IgnoreCase);
-            if (m.Success)
+            else
             {
-                collection.Remove(data);
+                m = Regex.Match(data.Value, @"(\d+)?([a-zA-Z]+)"); // zero or more digits and zero or more characters
+                if (m.Success)
+                {
+                    collection.Remove(data);
 
-                if (collection.Count > 0)
-                    this.Parse(collection, ++depth);
+                    value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + m.Value).Trim() : m.Value;
+                }
+
+                if (collection.Count == 2)
+                {
+                    m = Regex.Match(data.Value, @"^(\d+)$"); // one or more digits only.
+                    if (m.Success)
+                    {
+                        collection.Remove(data);
+
+                        value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + m.Value).Trim() : m.Value;
+                    }
+                }
             }
 
             return value;

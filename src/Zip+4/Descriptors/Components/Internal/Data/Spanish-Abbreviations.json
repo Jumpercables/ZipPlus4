@@ -1,0 +1,14 @@
+﻿[
+    { "Name": "AVENIDA", "Value": "AVE" },
+    { "Name": "CALLE", "Value": "CLL" },
+    { "Name": "CAMINITO", "Value": "CMT" },
+    { "Name": "CAMINO", "Value": "CAM" },
+    { "Name": "CERRADA", "Value": "CER" },
+    { "Name": "CIRCULO", "Value": "CIR" },
+    { "Name": "ENTRADA", "Value": "ENT" },
+    { "Name": "PASEO", "Value": "PSO" },
+    { "Name": "PLACITA", "Value": "PLA" },
+    { "Name": "RANCHO", "Value": "RCH" },
+    { "Name": "VEREDA", "Value": "VER" },
+    { "Name": "VISTA", "Value": "VIS" }
+]

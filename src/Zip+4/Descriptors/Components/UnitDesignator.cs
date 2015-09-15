@@ -38,26 +38,21 @@ namespace ZipPlus4
         ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
         protected override string Parse(List<Match> collection, int depth)
-        {
-            var data = collection.First();
-            var number = Parse<Number>(new List<Match>(new[] {data}));
-
-            if (!string.IsNullOrEmpty(number))
+        {            
+            if (collection.Count > 2)
             {
+                var data = collection.First();
                 var next = collection.Skip(1).First();
-                if (next != null)
+                var value = base.Parse(new List<Match>(new[] {next}), depth);
+                if (!string.IsNullOrEmpty(value))
                 {
-                    var value = base.Parse(new List<Match>(new[] {next}), depth);
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        collection.Remove(data);
-                        collection.Remove(next);
+                    collection.Remove(data);
+                    collection.Remove(next);
 
-                        return string.Concat(value, " ", data.Value).Trim();
-                    }
+                    return string.Concat(value, " ", data.Value).Trim();
                 }
             }
-            
+
             return null;
         }
 

@@ -50,6 +50,7 @@
     <Compile Include="Descriptors\Components\Direction.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Descriptors\Components\Prefix.cs" />
     <Compile Include="Descriptors\Components\State.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,7 +74,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Descriptors\Components\Internal\Data\Highway-Abbreviations.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Descriptors\Components\Internal\Data\Spanish-Abbreviations.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

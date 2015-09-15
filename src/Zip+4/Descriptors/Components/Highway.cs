@@ -74,7 +74,7 @@ namespace ZipPlus4
                 }
             }
 
-            return base.Parse(collection, depth);
+            return null;
         }
 
         #endregion

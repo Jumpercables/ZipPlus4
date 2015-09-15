@@ -69,9 +69,9 @@ namespace ZipPlus4.Tests
             Assert.AreEqual("4125", value.Number);
             Assert.AreEqual(null, value.Fraction);
             Assert.AreEqual(null, value.PreDirectional);
-            Assert.AreEqual("PACIFIC HIGHWAY", value.Street);
+            Assert.AreEqual("PACIFIC", value.Street);
             Assert.AreEqual(null, value.PostDirectional);
-            Assert.AreEqual(null, value.Suffix);
+            Assert.AreEqual("HWY", value.Suffix);
             Assert.AreEqual(null, value.Unit);
         }
 
@@ -186,6 +186,29 @@ namespace ZipPlus4.Tests
         }
 
         [TestMethod]
+        public void Address_SpanishPrefix()
+        {
+            var value = Address.Parse<PostalAddress>("3727 CM CIELO DEL MAR");
+            Assert.AreEqual("3727", value.Number);
+            Assert.AreEqual(null, value.Fraction);
+            Assert.AreEqual(null, value.PreDirectional);
+            Assert.AreEqual("CAMINITO CIELO DEL MAR", value.Street);
+            Assert.AreEqual(null, value.PostDirectional);
+            Assert.AreEqual(null, value.Suffix);
+        }
+        [TestMethod]
+        public void Address_NumberNumberStreet()
+        {
+            var value = Address.Parse<PostalAddress>("3711 41 street");
+            Assert.AreEqual("3711", value.Number);
+            Assert.AreEqual(null, value.Fraction);
+            Assert.AreEqual(null, value.PreDirectional);
+            Assert.AreEqual("41", value.Street);
+            Assert.AreEqual(null, value.PostDirectional);
+            Assert.AreEqual("ST", value.Suffix);
+        }
+
+        [TestMethod]
         public void Address_NumberRangeTakeFist()
         {
             var value = Address.Parse<PostalAddress>("1173-1175 FLORIDA STREET");
@@ -222,6 +245,19 @@ namespace ZipPlus4.Tests
         }
 
         [TestMethod]
+        public void Address_TwoStreets()
+        {
+            var value = Address.Parse<PostalAddress>("1695 Live Oak Rd . N/O Melrose Dr.");
+            Assert.AreEqual("1695", value.Number);
+            Assert.AreEqual(null, value.Fraction);
+            Assert.AreEqual(null, value.PreDirectional);
+            Assert.AreEqual("MELROSE", value.Street);
+            Assert.AreEqual(null, value.PostDirectional);
+            Assert.AreEqual("DR", value.Suffix);
+            Assert.AreEqual(null, value.Unit);
+        }
+
+        [TestMethod]
         public void Address_TwoSuffixesWithNumber()
         {
             var value = Address.Parse<PostalAddress>("1370 OAK DR FOOTHILL DR");
@@ -240,7 +276,7 @@ namespace ZipPlus4.Tests
             Assert.AreEqual(null, value.Number);
             Assert.AreEqual(null, value.Fraction);
             Assert.AreEqual(null, value.PreDirectional);
-            Assert.AreEqual("ROSE FLOWER DR S SUNFLPWER", value.Street);
+            Assert.AreEqual("SUNFLPWER", value.Street);
             Assert.AreEqual(null, value.PostDirectional);
             Assert.AreEqual("ST", value.Suffix);
         }
@@ -270,6 +306,21 @@ namespace ZipPlus4.Tests
             Assert.AreEqual("RD", value.Suffix);
             Assert.AreEqual("APT 257", value.Unit);
         }
+
+
+        [TestMethod]
+        public void Address_UnitOneLetter()
+        {
+            var value = Address.Parse<PostalAddress>("4949 CORONADO AVE. UNIT D");
+            Assert.AreEqual("4949", value.Number);
+            Assert.AreEqual(null, value.Fraction);
+            Assert.AreEqual(null, value.PreDirectional);
+            Assert.AreEqual("CORONADO", value.Street);
+            Assert.AreEqual(null, value.PostDirectional);
+            Assert.AreEqual("AVE", value.Suffix);
+            Assert.AreEqual("UNIT D", value.Unit);
+        }
+
 
         [TestMethod]
         public void Address_UnitPoundSignNoSpaceNumber()

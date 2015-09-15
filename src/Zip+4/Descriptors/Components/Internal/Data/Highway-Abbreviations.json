@@ -20,5 +20,7 @@
     { "Name": "FRONTAGE BYP", "Value": "FRONTAGE BYP" },
     { "Name": "RT", "Value": "ROUTE" },
     { "Name": "ROUTE", "Value": "ROUTE" },
-    { "Name": "RTE", "Value": "ROUTE" }
+    { "Name": "RTE", "Value": "ROUTE" },
+    { "Name": "INTERSTATE", "Value": "I" },
+    { "Name": "I", "Value": "I"}
 ]
