@@ -56,7 +56,6 @@
     </Compile>
     <Compile Include="PostalAddress.cs" />
     <Compile Include="Descriptors\Components\Highway.cs" />
-    <Compile Include="Descriptors\Components\Internal\Abbreviation.cs" />
     <Compile Include="Descriptors\Components\Fraction.cs" />
     <Compile Include="Descriptors\Components\Number.cs" />
     <Compile Include="Descriptors\Components\Suffix.cs" />

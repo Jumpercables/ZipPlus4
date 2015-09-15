@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
-using ZipPlus4.Internal;
 
 namespace ZipPlus4
 {
@@ -11,7 +8,7 @@ namespace ZipPlus4
     {
         #region Fields
 
-        private static readonly List<Abbreviation> Abbreviations = Abbreviation.CreateUnitAbbreviations();
+        private static readonly List<Abbreviation> Abbreviations = CreateAbbreviations("Unit-Abbreviations.json");
 
         #endregion
 
@@ -38,7 +35,7 @@ namespace ZipPlus4
         ///     Returns <see cref="string" /> representing the parsed value.
         /// </returns>
         protected override string Parse(List<Match> collection, int depth)
-        {            
+        {
             if (collection.Count > 2)
             {
                 var data = collection.First();

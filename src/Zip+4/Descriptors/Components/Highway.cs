@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using ZipPlus4.Internal;
-
 namespace ZipPlus4
 {
     public class Highway : Abbreviations
@@ -13,7 +11,7 @@ namespace ZipPlus4
         /// <summary>
         ///     The abbreviations
         /// </summary>
-        private static readonly List<Abbreviation> Abbreviations = Abbreviation.CreateHighwayAbbreviations();
+        private static readonly List<Abbreviation> Abbreviations = CreateAbbreviations("Highway-Abbreviations.json");
 
         #endregion
 

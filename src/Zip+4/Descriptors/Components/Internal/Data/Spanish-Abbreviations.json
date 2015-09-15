@@ -1,14 +1,14 @@
 ﻿[
-    { "Name": "AVENIDA", "Value": "AVE" },
-    { "Name": "CALLE", "Value": "CLL" },
-    { "Name": "CAMINITO", "Value": "CMT" },
-    { "Name": "CAMINO", "Value": "CAM" },
-    { "Name": "CERRADA", "Value": "CER" },
-    { "Name": "CIRCULO", "Value": "CIR" },
-    { "Name": "ENTRADA", "Value": "ENT" },
-    { "Name": "PASEO", "Value": "PSO" },
-    { "Name": "PLACITA", "Value": "PLA" },
-    { "Name": "RANCHO", "Value": "RCH" },
-    { "Name": "VEREDA", "Value": "VER" },
-    { "Name": "VISTA", "Value": "VIS" }
+    { "Name": "AVE", "Value": "AVENIDA" },
+    { "Name": "CLL", "Value": "CALLE" },
+    { "Name": "CMT", "Value": "CAMINITO" },
+    { "Name": "CAM", "Value": "CAMINO" },
+    { "Name": "CER", "Value": "CERRADA" },
+    { "Name": "CIR", "Value": "CIRCULO" },
+    { "Name": "ENT", "Value": "ENTRADA" },
+    { "Name": "PSO", "Value": "PASEO" },
+    { "Name": "PLA", "Value": "PLACITA" },
+    { "Name": "RCH", "Value": "RANCHO" },
+    { "Name": "VER", "Value": "VEREDA" },
+    { "Name": "VIS", "Value": "VISTA" }
 ]

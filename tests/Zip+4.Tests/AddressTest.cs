@@ -188,7 +188,7 @@ namespace ZipPlus4.Tests
         [TestMethod]
         public void Address_SpanishPrefix()
         {
-            var value = Address.Parse<PostalAddress>("3727 CM CIELO DEL MAR");
+            var value = Address.Parse<PostalAddress>("3727 CMT CIELO DEL MAR");
             Assert.AreEqual("3727", value.Number);
             Assert.AreEqual(null, value.Fraction);
             Assert.AreEqual(null, value.PreDirectional);

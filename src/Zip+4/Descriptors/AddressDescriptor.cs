@@ -6,7 +6,8 @@ using System.Text.RegularExpressions;
 namespace ZipPlus4
 {
     /// <summary>
-    ///     An abstract class used to represent the data for an address element and used as a factory class to parse the elements.
+    ///     An abstract class used to represent the data for an address element and used as a factory class to parse the
+    ///     elements.
     /// </summary>
     public abstract class AddressDescriptor
     {

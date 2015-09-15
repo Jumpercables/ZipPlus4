@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using ZipPlus4.Internal;
-
 namespace ZipPlus4
 {
     /// <summary>
@@ -13,9 +11,9 @@ namespace ZipPlus4
         #region Fields
 
         /// <summary>
-        /// The abbreviations
+        ///     The abbreviations
         /// </summary>
-        private static readonly List<Abbreviation> Abbreviations = Abbreviation.CreateDirectionalAbbreviations();
+        private static readonly List<Abbreviation> Abbreviations = CreateAbbreviations("Directional-Abbreviations.json");
 
         #endregion
 

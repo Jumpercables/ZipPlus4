@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using ZipPlus4.Internal;
-
 namespace ZipPlus4
 {
     /// <summary>
@@ -15,7 +13,7 @@ namespace ZipPlus4
     {
         #region Fields
 
-        private static readonly List<Abbreviation> Abbreviations = Abbreviation.CreateSpanishAbbreviations();
+        private static readonly List<Abbreviation> Abbreviations = CreateAbbreviations("Spanish-Abbreviations.json");
 
         #endregion
 

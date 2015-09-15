@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 
 using ZipPlus4.Internal;
 
@@ -59,6 +63,36 @@ namespace ZipPlus4
         #region Protected Methods
 
         /// <summary>
+        ///     Creates the abbreviations.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>
+        ///     Returns a <see cref="List{Abbreviation}" /> representing the list of abbreviations.
+        /// </returns>
+        protected static List<Abbreviation> CreateAbbreviations(string resourceName)
+        {
+            List<Abbreviation> abbreviations = new List<Abbreviation>();
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            var name = assembly.GetManifestResourceNames().FirstOrDefault(o => o.EndsWith(resourceName));
+            if (name != null)
+            {
+                using (var rs = assembly.GetManifestResourceStream(name))
+                {
+                    if (rs != null)
+                    {
+                        using (var sr = new StreamReader(rs))
+                        {
+                            JavaScriptSerializer serializer = new JavaScriptSerializer();
+                            abbreviations = serializer.Deserialize<List<Abbreviation>>(sr.ReadToEnd());
+                        }
+                    }
+                }
+            }
+
+            return abbreviations;
+        }
+
+        /// <summary>
         ///     Tries the parse the data into the correct format.
         /// </summary>
         /// <param name="collection">The collection.</param>
@@ -109,7 +143,7 @@ namespace ZipPlus4
             string value = null;
             var data = collection.First();
 
-            var normalized = _Abbreviations.Select(a => new { a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value.ToUpperInvariant(), a.Name.ToUpperInvariant()) }).ToArray();
+            var normalized = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value.ToUpperInvariant(), a.Name.ToUpperInvariant())}).ToArray();
             var max = normalized.Max(a => a.Normalized);
             if (max >= minimumFuzzyScore)
             {
@@ -118,7 +152,7 @@ namespace ZipPlus4
 
             if (string.IsNullOrEmpty(value))
             {
-                normalized = _Abbreviations.Select(a => new { a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value.ToUpperInvariant(), a.Value.ToUpperInvariant()) }).ToArray();
+                normalized = _Abbreviations.Select(a => new {a.Name, a.Value, Normalized = LevenshteinDistance.Normalized(data.Value.ToUpperInvariant(), a.Value.ToUpperInvariant())}).ToArray();
                 max = normalized.Max(a => a.Normalized);
                 if (max >= minimumFuzzyScore)
                 {
@@ -133,6 +167,33 @@ namespace ZipPlus4
 
             return value;
         }
+
+        #endregion
+    }
+
+    /// <summary>
+    ///     An key/value pair of the name and value of the abbreviations.
+    /// </summary>
+    [DebuggerDisplay("Name = {Name}, Value = {Value}")]
+    public class Abbreviation
+    {
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets or sets the commonly used name abbreviation
+        /// </summary>
+        /// <value>
+        ///     The commonly used.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the standard abbreviation.
+        /// </summary>
+        /// <value>
+        ///     The postal.
+        /// </value>
+        public string Value { get; set; }
 
         #endregion
     }

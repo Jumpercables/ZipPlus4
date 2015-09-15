@@ -25,8 +25,9 @@ namespace ZipPlus4
         {
             string value = null;
             var data = collection.First();
-            
-            var m = Regex.Match(data.Value, @"(^[a-zA-Z]$)"); // one and only one character.
+
+            // One and only one character.
+            var m = Regex.Match(data.Value, @"(^[a-zA-Z]$)");
             if (m.Success)
             {
                 if (depth == 0)
@@ -41,16 +42,18 @@ namespace ZipPlus4
                 }
             }
 
+            // Remove the cross streets and street intersections.
             if (data.Value.Equals("/") || Regex.IsMatch(data.Value, @"([a-zA-Z]+\/[a-zA-Z]+)") || Regex.IsMatch(data.Value, @"^(AND)|(BETWEEN)$", RegexOptions.IgnoreCase))
             {
-                 collection.Remove(data);
+                collection.Remove(data);
 
-                if (collection.Count > 0) 
+                if (collection.Count > 0)
                     this.Parse(collection, ++depth); // The data is not used on purpose.
             }
             else
             {
-                m = Regex.Match(data.Value, @"(\d+)?([a-zA-Z]+)"); // zero or more digits and zero or more characters
+                // Zero or more digits and zero or more characters
+                m = Regex.Match(data.Value, @"(\d+)?([a-zA-Z]+)");
                 if (m.Success)
                 {
                     collection.Remove(data);
@@ -58,15 +61,12 @@ namespace ZipPlus4
                     value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + m.Value).Trim() : m.Value;
                 }
 
-                if (collection.Count == 2)
+                // When the 2 matches remaining are only digits.
+                if (collection.Count == 2 && collection.All(o => Regex.IsMatch(o.Value, @"^(\d+)$")))
                 {
-                    m = Regex.Match(data.Value, @"^(\d+)$"); // one or more digits only.
-                    if (m.Success)
-                    {
-                        collection.Remove(data);
+                    collection.Remove(data);
 
-                        value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + m.Value).Trim() : m.Value;
-                    }
+                    value = collection.Count > 0 ? (this.Parse(collection, ++depth) + " " + data.Value).Trim() : data.Value;
                 }
             }
 
